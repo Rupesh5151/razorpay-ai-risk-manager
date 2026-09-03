@@ -25,14 +25,14 @@
     <td align="center" width="340">
       <strong>Live Dashboard</strong><br />
       <sub>Streamlit ops panel — real-time fraud monitoring, scoring, and drift detection</sub><br /><br />
-      <a href="">
+      <a href="https://riskpulse-dashboard.onrender.com">
         <img src="https://img.shields.io/badge/razorpay--risk--dashboard.onrender.com-FF4B4B?style=for-the-badge&logoColor=white" alt="Live Dashboard" />
       </a>
     </td>
     <td align="center" width="340">
       <strong>Live API</strong><br />
       <sub>FastAPI inference server — /score, /batch, /audit, /health endpoints</sub><br /><br />
-      <a href="">
+      <a href="https://riskpulse-api-jkd4.onrender.com">
         <img src="https://img.shields.io/badge/razorpay--risk--api.onrender.com-009688?style=for-the-badge&logoColor=white" alt="Live API" />
       </a>
     </td>
@@ -276,8 +276,8 @@ pytest tests/ -v
 | API documentation | http://localhost:8000/docs |
 | Dashboard | http://localhost:8501 |
 | API health | http://localhost:8000/health |
-| **Live Dashboard** |  |
-| **Live API** |  |
+| **Live Dashboard** | https://riskpulse-dashboard.onrender.com  |
+| **Live API** | https://riskpulse-api-jkd4.onrender.com  |
 
 ---
 
@@ -356,7 +356,7 @@ GET  /health
 
 ## Dashboard
 
-The Streamlit ops panel is live at **** and provides 6 tabs:
+The Streamlit ops panel is live at **https://riskpulse-dashboard.onrender.com** and provides 6 tabs:
 
 | Tab | Purpose |
 |---|---|
