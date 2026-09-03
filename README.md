@@ -12,7 +12,7 @@
 
 <br />
 
-![Python](https://img.shields.io/badge/Python_3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python_3.11.9-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI_0.111-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit_1.35-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![AUC-ROC](https://img.shields.io/badge/AUC--ROC_0.9187-2B6BE6?style=for-the-badge)
@@ -26,14 +26,14 @@
       <strong>Live Dashboard</strong><br />
       <sub>Streamlit ops panel — real-time fraud monitoring, scoring, and drift detection</sub><br /><br />
       <a href="https://riskpulse-dashboard.onrender.com">
-        <img src="https://img.shields.io/badge/razorpay--risk--dashboard.onrender.com-FF4B4B?style=for-the-badge&logoColor=white" alt="Live Dashboard" />
+        <img src="https://img.shields.io/badge/riskpulse--dashboard.onrender.com-FF4B4B?style=for-the-badge&logoColor=white" alt="Live Dashboard" />
       </a>
     </td>
     <td align="center" width="340">
       <strong>Live API</strong><br />
       <sub>FastAPI inference server — /score, /batch, /audit, /health endpoints</sub><br /><br />
       <a href="https://riskpulse-api-jkd4.onrender.com">
-        <img src="https://img.shields.io/badge/razorpay--risk--api.onrender.com-009688?style=for-the-badge&logoColor=white" alt="Live API" />
+        <img src="https://img.shields.io/badge/riskpulse--api--jkd4.onrender.com-009688?style=for-the-badge&logoColor=white" alt="Live API" />
       </a>
     </td>
   </tr>
@@ -67,7 +67,7 @@
 
 ## Overview
 
-RiskPulse is a production-grade fraud detection system that scores transactions in real time, generates explainable decisions with SHAP reason codes, and integrates directly with Razorpay's test-mode API. Every decision is logged to an immutable audit trail and can be exported as a chargeback evidence pack.
+RiskPulse is a production-grade fraud detection system that scores transactions in real time, generates explainable decisions with SHAP reason codes, and integrates directly with Razorpay's test-mode API. Every decision is logged to an append-only audit trail and can be exported as a chargeback evidence pack.
 
 The system handles the full fraud detection lifecycle — from transaction ingestion and feature engineering, through ML inference and threshold routing, to merchant webhook delivery and drift monitoring.
 
@@ -76,7 +76,7 @@ The system handles the full fraud detection lifecycle — from transaction inges
 | **Fraud model** | LightGBM + isotonic calibration |
 | **Decision paths** | ML inference or conservative cold-start rules |
 | **Outputs** | Approve, step up with 2FA, or decline |
-| **Controls** | Explainable reasons, immutable audit, drift monitoring |
+| **Controls** | Explainable reasons, append-only audit , drift monitoring |
 | **Interfaces** | FastAPI, Streamlit, Razorpay test mode |
 
 > **Important:** This project is configured for Razorpay **test mode**. Use test credentials in `.env` and never commit secrets.
@@ -242,7 +242,7 @@ razorpay-ai-risk-manager/
 
 ## Quick Start
 
-**Prerequisites:** Python 3.12+, pip, Razorpay test account
+**Prerequisites:** Python 3.11.9, pip, Razorpay test account
 
 ```bash
 # Clone repository
@@ -379,7 +379,7 @@ The Streamlit ops panel is live at **https://riskpulse-dashboard.onrender.com** 
 | Cold-start handling | Rule-based fallback for entities with fewer than 10 transaction history |
 | Explainability | TreeSHAP reason codes for every decision |
 | Razorpay integration | Direct test-mode order creation and webhook delivery |
-| Immutable audit trail | Append-only JSONL log of all decisions |
+| Append-only audit trail | Append-only JSONL log of all decisions |
 | Drift monitoring | PSI and KL divergence detection between reference and current windows |
 
 ### Feature Engineering
@@ -496,14 +496,14 @@ Training pipeline uses the IEEE-CIS Fraud Detection dataset:
 | API Server | FastAPI 0.111, Uvicorn, Pydantic 2.7 |
 | ML Model | LightGBM 4.3.0 (3129 trees) |
 | Explainability | SHAP 0.45 (TreeSHAP) |
-| Calibration | Isotonic regression (scikit-learn 1.4) |
+| Calibration | Isotonic regression (scikit-learn 1.6.1) |
 | Dashboard | Streamlit 1.35, Plotly 5.22 |
 | Payments API | Razorpay Python SDK 1.3 |
 | Audit | Append-only JSONL |
 | Drift Detection | PSI, KL divergence (NumPy 1.26) |
 | Testing | pytest 9.1, pandas 2.1 |
 | Containerization | Docker, docker-compose |
-| Language | Python 3.12 (development), Python 3.11 (production container) |
+| Language | Python 3.11.9 (development), Python 3.11 (production container) |
 
 ---
 
@@ -511,8 +511,8 @@ Training pipeline uses the IEEE-CIS Fraud Detection dataset:
 
 ```bash
 # Build and run API container
-docker build -t razorpay-risk-api .
-docker run -p 8000:8000 --env-file .env razorpay-risk-api
+docker build -f docker/Dockerfile -t riskpulse-api .
+docker run -p 8000:8000 --env-file .env riskpulse-api
 
 # Run full stack (API + Dashboard)
 docker-compose -f docker/docker-compose.yml up
@@ -549,7 +549,7 @@ Never commit `.env` to version control. It is listed in `.gitignore`.
 | FastAPI inference server | Complete | /score, /batch, /health, /audit endpoints |
 | Razorpay test-mode integration | Complete | Real orders via rzp_test_ keys |
 | Merchant webhooks | Complete | Fires on STEP_UP and DECLINE |
-| Immutable audit logger | Complete | Append-only JSONL |
+| Append-only audit logger | Complete | Append-only JSONL |
 | Chargeback evidence packs | Complete | Auto-generated text reports |
 | Streamlit dashboard | Complete | 6 tabs including drift monitor |
 | Batch CSV scorer | Complete | SHAP reasons per row |
